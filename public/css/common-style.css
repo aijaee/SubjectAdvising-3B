@@ -1,0 +1,480 @@
+:root {
+    /* Colors */
+    --primary-color: #a65ae9;
+    --primary-color-selected: #8547bb;
+    --background-color: #191919;
+    --sidebar-color: #242424;
+    --panel-color: #242424;
+    --text-on-panel-color: #828282;
+    --tr-color-darker: #222222;
+    --tr-color-lighter: #252525;
+    --background-color-other: #454545;
+    --text-color-light: #fcfcfc;
+    --th-color: #2f2f2f;
+
+    /* Box Shadows */
+    --primary-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}   
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color-other);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 12px;
+    transition: var(--tran-03);
+}
+
+/* Others */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#sidebar {
+    position: fixed;
+    flex-basis: 20%;
+    background-color: var(--sidebar-color);
+    height: 100vh;
+    width: 15vw;
+    padding: 20px;
+    box-shadow: var(--primary-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sidebar h1 {
+    font-size: 32px;
+    margin: 10px 0;
+    color: var(--primary-color)
+}
+
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+#sidebar li {
+    margin-bottom: 10px;
+}
+
+#sidebar a {
+    display: block;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#sidebar a:hover {
+    background-color: var(--primary-color-selected);
+}
+
+#user-info {
+    margin-top: 100%;
+    color: #ecf0f1;
+    text-align: center;
+}
+
+#user-info p {
+    margin: 5px 0;
+}
+
+.note {
+    color: var(--text-on-panel-color);
+}
+
+.link{
+    color: var(--primary-color);
+}
+
+#content {
+    margin-left: calc(15vw + 20px + 20px);
+    flex-basis: 80%;
+    padding: 20px;
+    background-color: var(--background-color);
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 27px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: var(--primary-shadow);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    color: var(--text-color-light);
+}
+
+td {
+    padding: 12px;
+}
+
+th {
+    background-color: var(--th-color);
+    color: #fff;
+}
+
+tr:nth-child(odd) {
+    background-color: var(--tr-color-darker);
+}
+
+tr:nth-child(even) {
+    background-color: var(--tr-color-lighter);
+}
+
+.enroll-student-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.enroll-student-btn:hover {
+    background-color: var(--primary-color-selected);
+}
+
+.enroll-student-btn i {
+    margin-right: 10px;
+}
+
+.search-bar {
+    display: flex;
+    /* justify-content: space-between; */
+    margin-top: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.search-bar form{ 
+    width:100%;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.search-field {
+    width: 48%;
+    background-color: var(--panel-color);
+    /* outline: 2px solid var(--primary-color); */
+    box-shadow: var(--primary-shadow);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-field:focus {
+    outline: 1px solid var(--primary-color);
+}
+
+#gender-search-default,
+#year-level-search-default,
+#status-search-default,
+#user-type-search-default {
+    color: #8e8e8e;
+}
+
+.search-btn,
+.logout-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    box-shadow: var(--primary-shadow);
+    align-items: center;
+}
+
+.search-btn:hover,
+.logout-btn:hover {
+    background-color: var(--primary-color-selected);
+    color: var(--text-color-light);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn,
+.delete-btn,
+.mark-btn,
+.view-btn {
+    padding: 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.edit-btn i,
+.delete-btn i,
+.mark-btn i {
+    margin-right:5px;
+}
+
+.edit-btn {
+    background-color: #36995f;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #2c804f;
+}
+
+.delete-btn {
+    background-color: #b93b2d;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #a23327;
+}
+
+.view-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.view-btn:hover {
+    background-color: var(--primary-color-selected);
+}
+
+.mark-btn {
+    background-color: #e67e22;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* Style for disabled button */
+.mark-btn[disabled] {
+    opacity: 0.5; /* Reduce opacity */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+}
+
+
+.mark-btn:hover {
+    background-color: #d35400;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.card {
+    background-color: var(--panel-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    margin-right: 20px;
+    transition: transform 0.3s;
+}
+
+.card:last-child {
+    margin-right: 0; /* Remove margin-right for the last card */
+}
+
+.card i {
+    font-size: 36px;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.card span {
+    display: block;
+    font-size: 24px;
+    color: #333;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Enrollment Form Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--background-color);
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 450px;
+    position: relative;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #b9b9b9;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.modal-content h2 {
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 0px;
+    color: #eee;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #303245;
+    color: #eee;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 10px;
+}
+
+.enroll-btn {
+    background-color: var(--primary-color);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.enroll-btn:hover {
+    background-color: var(--primary-color-selected);
+}
+
+.enroll-student-btn i {
+    margin-right: 10px;
+}
+
+
+.modal p{
+color:#fff;
+text-align:center;
+}
+
+
+.card span i{ color:#f0a500; font-size:27px; }
+
+
+/* ////////////////////////////////// */
+
+
+.page-nav {
+    background-color: var(--panel-color);
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .page-nav button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .page-nav button:hover {
+    background-color: var(--primary-color-selected);
+    cursor: pointer;
+  }  
+   
+
+
+/* ////////////////////////////////// */
+
+.alert{ padding: 20px; border-radius: 5px; text-align: center; position: relative;
+    width: 100%; margin: 20px auto; color: #333; font-size: 16px; box-sizing: border-box;}
+
+.alert.error{ background-color: #ffe0e0; color: #d8000c; border: 1px solid #d8000c; }
+
+.alert.success{ background-color: #e6ffe6; color: #006600; border: 1px solid #006600;  }
+
+.close-alert{ position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 24px;
+                padding: 1px 4px; transition: color 0.2s ease-in-out; }
+
+.close-alert:hover{ color:#000; }
+

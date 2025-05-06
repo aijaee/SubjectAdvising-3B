@@ -20,17 +20,19 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'phone' => 'required|string|max:50',
+            'password' => 'required|string|confirmed',
+            'user_role' => 'required|in:Student,Admin',
         ]);
 
-        // Create a new user
         User::create([
-            'name' => $request->name,
+            'fullname' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone_number' => $request->phone,
+            'user_role' => $request->user_role,
         ]);
 
-        // Redirect to the login page or dashboard
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 }
