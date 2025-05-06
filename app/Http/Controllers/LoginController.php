@@ -27,6 +27,9 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
+            // Set session variables
+            session(['user_role' => $user->user_role, 'email' => $user->email]);
+
             // Log the user in
             Auth::login($user);
 
