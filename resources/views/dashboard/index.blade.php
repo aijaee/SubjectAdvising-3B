@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard-style.css') }}">
 </head>
 <body>
+    {{-- <div id="sidebar">
+        <h1>Dashboard</h1>
+        <ul>
+            <li><a href="dashboard.php"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="students.php"><i class="fas fa-user"></i> Students</a></li>
+            <li><a href="courses.php"><i class="fas fa-book"></i> Courses</a></li>    
+            <li><a href="enrollments.php"><i class="fas fa-user-graduate"></i> Enrollments</a></li>
+            <li><a href="marks.php"><i class="fas fa-tag"></i> Marks</a></li>
+            <li><a href="users.php"><i class="fas fa-users"></i> Users</a></li>        
+        </ul>
+        <div id="user-info">
+            <p>Welcome, s</p>
+            <p><a href="logout.php" class="logout-btn">Logout</a></p>
+        </div>
+    </div> --}}
+
     <div id="content">
         <h2>Dashboard</h2>
 
