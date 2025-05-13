@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard-style.css') }}">
 </head>
 <body>
+@include('layouts.sidebar')
+
     <div id="content">
         <h2>Student Dashboard</h2>
         @if ($student)

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard-style.css') }}">
 </head>
 <body>
+@include('layouts.sidebar')
     <div id="content">
         <h2>Admin Dashboard</h2>
         <div class="cards-container">

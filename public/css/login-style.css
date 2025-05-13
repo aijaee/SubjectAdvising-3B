@@ -62,7 +62,7 @@ button[type="submit"]:hover {
     background-color: #8547bb;
 }
 .error {
-    color: #e74c3c;
+    color: #e74c3c; /* Bright red for error messages */
     font-size: 14px;
     margin-bottom: 10px;
     text-align: center;
