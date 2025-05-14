@@ -70,7 +70,7 @@ class StudentController extends Controller
             'gender' => 'required|string',
             '_section' => 'required|string|max:10',
             'phone_number' => 'required|string|max:15',
-            'email' => 'required|email|unique:student,email,' . $student->id,
+            'email' => 'required|email|unique:students,email,' . $student->id,
             'picture' => 'nullable|image|max:2048',
         ]);
 

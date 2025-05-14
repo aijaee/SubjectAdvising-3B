@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('enrollment_status', 20)->nullable();
             $table->timestamps();
 
-            $table->foreign('student_id')->references('id')->on('student')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('course_id')->references('course_id')->on('course')->onDelete('cascade')->onUpdate('cascade');
         });
     }
