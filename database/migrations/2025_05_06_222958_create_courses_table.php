@@ -8,13 +8,13 @@ class CreateCoursesTable extends Migration
 {
     public function up()
     {
-        Schema::create('course', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id('course_id');
             $table->string('course_name');
-            $table->text('course_description')->nullable();
-            $table->string('course_duration')->nullable();
-            $table->string('course_instructor')->nullable();
-            $table->enum('course_year_level', ['1st', '2nd', '3rd', '4th'])->default('1st');
+            $table->text('description')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('instructor')->nullable();
+            $table->string('year_level')->nullable();
             $table->decimal('course_fee', 10, 2)->nullable();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ class CreateCoursesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('course');
+        Schema::dropIfExists('courses');
     }
 }

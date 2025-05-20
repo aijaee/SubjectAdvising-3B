@@ -1,0 +1,27 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #222;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    color: #fff;
+    position: relative;
+}
+.close {
+    color: #aaa;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover { color: #fff; }

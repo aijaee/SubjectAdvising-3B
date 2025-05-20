@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>Student ID:</th>
-                                    <td>{{ $student->id }}</td>
+                                    <td>{{ $student->student_id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Student Name:</th>

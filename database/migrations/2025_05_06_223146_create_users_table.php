@@ -14,10 +14,10 @@ class CreateUsersTable extends Migration
             $table->string('fullname', 255)->notNullable();
             $table->string('email', 255)->unique()->notNullable();
             $table->string('password', 255)->notNullable();
-            $table->string('phone_number', 50)->notNullable();
+            $table->string('phone_number', 50)->nullable();
             $table->enum('user_role', ['Student', 'Admin'])->notNullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 

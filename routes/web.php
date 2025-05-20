@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -23,7 +24,24 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 // Additional routes for sidebar links
 Route::resource('students', StudentController::class);
-// Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-// Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
-// Route::get('/marks', [MarkController::class, 'index'])->name('marks.index');
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::resource('courses', CourseController::class);
+Route::resource('enrollments', EnrollmentController::class);
+Route::resource('marks', MarkController::class);
+Route::resource('users', UserController::class);
+
+// Student-specific routes with inline role check
+Route::middleware(['auth'])->group(function () {
+    Route::get('/student/enrollments', function () {
+        if (Auth::user()->user_role !== 'Student') {
+            abort(403);
+        }
+        return app(\App\Http\Controllers\StudentController::class)->enrollments();
+    })->name('student.enrollments');
+
+    Route::get('/student/marks', function () {
+        if (Auth::user()->user_role !== 'Student') {
+            abort(403);
+        }
+        return app(\App\Http\Controllers\StudentController::class)->marks();
+    })->name('student.marks');
+});

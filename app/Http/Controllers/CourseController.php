@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Course;
+
+class CourseController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+$courses = Course::when(request('query'), function($q) {
+        $q->where('course_name', 'like', '%' . request('query') . '%');
+    })
+    ->when(request('year_level'), function($q) {
+        $q->where('year_level', request('year_level'));
+    })
+    ->paginate(10);
+        return view('courses.index', compact('courses'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('courses.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'course_name' => 'required',
+            'description' => 'nullable',
+            'duration' => 'nullable',
+            'instructor' => 'nullable',
+            'year_level' => 'nullable',
+            'course_fee' => 'nullable|numeric',
+        ]);
+        Course::create($validated);
+        return redirect()->route('courses.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Course $course)
+    {
+        return view('courses.edit', compact('course'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $course = Course::findOrFail($id);
+        $course->update($request->all());
+
+        // Return JSON if AJAX
+        if ($request->expectsJson() || $request->isJson()) {
+            return response()->json(['success' => true]);
+        }
+
+        // Fallback for normal form submission
+        return redirect()->route('courses.index')->with('success', 'Course updated!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Course $course)
+    {
+        $course->delete();
+        return redirect()->route('courses.index');
+    }
+}

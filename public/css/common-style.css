@@ -183,6 +183,12 @@ tr:nth-child(even) {
     width:100%;
     display: flex;
     justify-content: space-between; 
+    gap: 20px;
+}
+
+.search-bar input[type="text"],
+.search-bar select {
+    flex: 1;
 }
 
 .search-field {
@@ -295,6 +301,12 @@ tr:nth-child(even) {
     cursor: not-allowed; /* Change cursor to indicate it's not clickable */
 }
 
+.mark-btn[disabled],
+.mark-btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 .mark-btn:hover {
     background-color: #d35400;
@@ -398,6 +410,19 @@ tr:nth-child(even) {
     box-sizing: border-box;
     outline: none;
     margin-top: 10px;
+    font-size: 16px;
+}
+
+.form-group input[type="number"] {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eee;
+    color: #303245;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 10px;
+    font-size: 16px;
 }
 
 .enroll-btn {

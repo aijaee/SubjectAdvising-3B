@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -70,7 +71,7 @@ class StudentController extends Controller
             'gender' => 'required|string',
             '_section' => 'required|string|max:10',
             'phone_number' => 'required|string|max:15',
-            'email' => 'required|email|unique:student,email,' . $student->id,
+            'email' => 'required|email|unique:students,email,' . $student->student_id . ',student_id',
             'picture' => 'nullable|image|max:2048',
         ]);
 
@@ -93,5 +94,26 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
+    }
+
+    public function enrollments()
+    {
+        $user = Auth::user();
+
+        // Ensure we are fetching the Student model using the user's student_id, not user id
+        $student = \App\Models\Student::where('student_id', $user->student_id)->first();
+
+        $enrollments = $student ? $student->enrollments()->with('course')->get() : collect();
+        $courses = \App\Models\Course::all();
+        // Pass $student to the view so the modal can use $student->student_id
+        return view('students.enrollments', compact('enrollments', 'courses', 'student'));
+    }
+
+    public function marks()
+    {
+        $student = Auth::user();
+        // Fetch marks for the logged-in student
+        $marks = $student->marks; // Adjust as per your relationships
+        return view('students.marks', compact('marks'));
     }
 }
