@@ -83,9 +83,8 @@
                     <div class="form-group" style="width: 100%; max-width: 350px;">
                         <label for="enrollment_status">Enrollment Status <span style="color:red">*</span></label>
                         <select id="enrollment_status" name="enrollment_status" required>
-                            <option value="">-- Select Status --</option>
-                            <option value="On Reservation">On Reservation</option>
-                            <option value="Active">Active</option>
+                            <option value="On Reservation" selected>On Reservation</option>
+                            <!-- <option value="Active" disabled>Active</option> -->
                         </select>
                     </div>
                     <button type="submit" class="enroll-btn" style="width: 100%; max-width: 350px;">Add Enrollment</button>
@@ -98,27 +97,22 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Student ID</th>
                     <th>Course</th>
                     <th>Course ID</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                @php $enrollments = $enrollments ?? collect(); @endphp
                 @forelse($enrollments as $enrollment)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>
-                            {{ isset($student) && $student ? $student->student_id : '' }}
-                        </td>
                         <td>{{ $enrollment->course->course_name ?? 'N/A' }}</td>
                         <td>{{ $enrollment->course_id ?? ($enrollment->course->course_id ?? 'N/A') }}</td>
-                        <td>{{ $enrollment->status ?? 'Enrolled' }}</td>
+                        <td>{{ $enrollment->enrollment_status ?? 'Enrolled' }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" style="text-align:center;">No enrollments found.</td>
+                        <td colspan="4" style="text-align:center;">No enrollments found.</td>
                     </tr>
                 @endforelse
             </tbody>

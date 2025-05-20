@@ -98,22 +98,29 @@ class StudentController extends Controller
 
     public function enrollments()
     {
-        $user = Auth::user();
-
-        // Ensure we are fetching the Student model using the user's student_id, not user id
-        $student = \App\Models\Student::where('student_id', $user->student_id)->first();
+        // Use the same logic as DashboardController for consistency
+        $userEmail = session('email');
+        $student = \App\Models\Student::where('email', $userEmail)->first();
 
         $enrollments = $student ? $student->enrollments()->with('course')->get() : collect();
         $courses = \App\Models\Course::all();
-        // Pass $student to the view so the modal can use $student->student_id
         return view('students.enrollments', compact('enrollments', 'courses', 'student'));
     }
 
     public function marks()
     {
-        $student = Auth::user();
-        // Fetch marks for the logged-in student
-        $marks = $student->marks; // Adjust as per your relationships
-        return view('students.marks', compact('marks'));
+        // Get the student by session email (consistent with enrollments)
+        $userEmail = session('email');
+        $student = \App\Models\Student::where('email', $userEmail)->first();
+
+        // Get all marks for this student's enrollments
+        $marks = collect();
+        if ($student) {
+            $marks = \App\Models\Mark::whereHas('enrollment', function($q) use ($student) {
+                $q->where('student_id', $student->student_id);
+            })->with(['enrollment.course'])->get();
+        }
+
+        return view('students.marks', compact('marks', 'student'));
     }
 }

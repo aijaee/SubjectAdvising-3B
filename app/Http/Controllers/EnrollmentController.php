@@ -54,6 +54,12 @@ class EnrollmentController extends Controller
             'enrollment_status' => 'required|string|max:20',
         ]);
         Enrollment::create($request->all());
+
+        // Redirect based on user role/session
+        $userRole = session('user_role');
+        if ($userRole === 'Student') {
+            return redirect()->route('student.enrollments')->with('success', 'Enrollment added!');
+        }
         return redirect()->route('enrollments.index')->with('success', 'Enrollment added!');
     }
 
