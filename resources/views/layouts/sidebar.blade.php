@@ -15,7 +15,7 @@
     </ul>
     <div id="user-info">
         <p>Welcome, {{ $authUser?->fullname ?? 'Guest' }}</p>
-        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+        <form action="{{ route('logout') }}" method="POST" style="display: flex; justify-content: center;">
             @csrf
             <button type="submit" class="logout-btn">Logout</button>
         </form>
