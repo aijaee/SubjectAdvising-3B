@@ -17,7 +17,15 @@
         <!-- Search Bar -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('enrollments.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" name="query" placeholder="Search by Student or Subject..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" name="query" placeholder="Search by Student Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                <select name="course_id" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="">-- Filter by Subject --</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->course_id }}" {{ request('course_id') == $course->course_id ? 'selected' : '' }}>
+                            [{{ $course->course_id }}] {{ $course->course_name ?? $course->name }}
+                        </option>
+                    @endforeach
+                </select>
                 <select name="status" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                     <option value="">-- Search by Status --</option>
                     <option value="Active" {{ request('status') == 'Active' ? 'selected' : '' }}>Active</option>
@@ -112,7 +120,7 @@
                                 >
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
-                                <form action="{{ route('enrollments.destroy', $enrollment->enrollment_id) }}" method="POST" style="margin: 0;">
+                                <form action="{{ route('enrollments.destroy', $enrollment->enrollment_id) }}" method="POST" style="margin: 0;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -318,6 +326,15 @@
                 markModal.style.display = "none";
             }
         }
+
+        // Add confirmation for delete buttons
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to delete this enrollment?')) {
+                    e.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 </html>

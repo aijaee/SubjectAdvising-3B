@@ -35,7 +35,7 @@
 
         <div style="margin-bottom: 20px;">
             <button id="openEnrollmentModalBtn" class="enroll-student-btn" style="padding: 8px 18px; border-radius: 4px; background: #007bff; color: #fff; border: none; cursor: pointer;">
-                <i class="fas fa-plus" style="margin-right: 8px;"></i>Add Enrollment
+                <i class="fas fa-plus" style="margin-right: 8px;"></i>Enroll Subject
             </button>
         </div>
 
@@ -43,7 +43,7 @@
         <div id="addEnrollmentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEnrollmentModalBtn">&times;</span>
-                <h2 style="text-align:center;">Add Enrollment</h2>
+                <h2 style="text-align:center;">Enroll Subject</h2>
                 {{-- Debug: Show which student is being used --}}
                 <div style="color: #888; font-size: 13px; margin-bottom: 10px;">
                     Modal Student ID: {{ isset($student) && $student ? $student->student_id : 'NOT SET' }}
@@ -84,10 +84,9 @@
                         <label for="enrollment_status">Enrollment Status <span style="color:red">*</span></label>
                         <select id="enrollment_status" name="enrollment_status" required>
                             <option value="On Reservation" selected>On Reservation</option>
-                            <!-- <option value="Active" disabled>Active</option> -->
                         </select>
                     </div>
-                    <button type="submit" class="enroll-btn" style="width: 100%; max-width: 350px;">Add Enrollment</button>
+                    <button type="submit" class="enroll-btn" style="width: 100%; max-width: 350px;">Enroll Subject</button>
                 </form>
             </div>
         </div>

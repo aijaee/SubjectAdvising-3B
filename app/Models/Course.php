@@ -26,4 +26,10 @@ class Course extends Model
     {
         return $this->hasMany(\App\Models\Enrollment::class, 'course_id', 'course_id');
     }
+    
+    public function active_enrollments()
+    {
+        return $this->hasMany(\App\Models\Enrollment::class, 'course_id', 'course_id')
+            ->where('enrollment_status', 'Active');
+    }
 }
