@@ -33,7 +33,6 @@
             </div>
         @endif
 
-        {{-- Only show marks table for the logged-in student --}}
         <table id="marks-table">
             <thead>
                 <tr>

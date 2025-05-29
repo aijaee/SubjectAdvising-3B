@@ -12,7 +12,7 @@ class CreateStudentsTable extends Migration
             $table->bigIncrements('student_id');
             $table->string('full_name');
             $table->date('date_of_birth');
-            $table->string('gender');
+            $table->string('gender'); // Sex
             $table->string('_section');
             $table->string('phone_number');
             $table->string('email')->unique();

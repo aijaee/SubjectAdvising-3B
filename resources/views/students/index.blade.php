@@ -14,12 +14,11 @@
     <div id="content">
         <h2>Student List</h2>
 
-        <!-- Search and Filter -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('students.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="query" placeholder="Search by Student Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                 <select name="gender" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="">-- Search by Gender --</option>
+                    <option value="">-- Search by Sex --</option>
                     <option value="Male" {{ request('gender') == 'Male' ? 'selected' : '' }}>Male</option>
                     <option value="Female" {{ request('gender') == 'Female' ? 'selected' : '' }}>Female</option>
                 </select>
@@ -28,15 +27,11 @@
                 </button>
             </form>
         </div>
-
-        <!-- Add New Student Button -->
         <div style="text-align: center;">
             <button id="openStudentModalBtn" class="enroll-student-btn" type="button">
                 <i class="fas fa-edit" style="margin-right: -6px;"></i>Add New Student
             </button>
         </div>
-
-        <!-- Add Student Modal -->
         <div id="addStudentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeStudentModalBtn">&times;</span>
@@ -52,8 +47,23 @@
                     </div>
                 @endif
 
-                <form action="{{ route('students.store') }}" method="POST" enctype="multipart/form-data" class="form-container">
+                <form action="{{ route('students.store') }}" method="POST" enctype="multipart/form-data" class="form-container" id="addStudentForm">
                     @csrf
+                    <div class="form-group">
+                        <label for="user_email">User Email</label>
+                        <select id="user_email" name="email" required>
+                            <option value="">Select user student email</option>
+                            @foreach($userStudents as $user)
+                                <option 
+                                    value="{{ $user->email }}"
+                                    data-fullname="{{ $user->fullname }}"
+                                    data-phone="{{ $user->phone_number }}"
+                                >
+                                    {{ $user->email }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="full_name">Full Name</label>
                         <input type="text" id="full_name" name="full_name" placeholder="Enter full name" required>
@@ -63,9 +73,9 @@
                         <input type="date" id="date_of_birth" name="date_of_birth" required>
                     </div>
                     <div class="form-group">
-                        <label for="gender">Gender</label>
+                        <label for="gender">Sex</label>
                         <select id="gender" name="gender" required>
-                            <option value="" disabled selected>Select gender</option>
+                            <option value="" disabled selected>Select sex</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
@@ -79,10 +89,6 @@
                         <input type="text" id="phone_number" name="phone_number" placeholder="Enter phone number" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter email address" required>
-                    </div>
-                    <div class="form-group">
                         <label for="picture">Picture</label>
                         <input type="file" id="picture" name="picture">
                     </div>
@@ -90,8 +96,6 @@
                 </form>
             </div>
         </div>
-
-        <!-- Edit Student Modal -->
         <div id="editStudentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEditStudentModalBtn">&times;</span>
@@ -109,7 +113,7 @@
                         <input type="date" id="edit_date_of_birth" name="date_of_birth" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_gender">Gender</label>
+                        <label for="edit_gender">Sex</label>
                         <select id="edit_gender" name="gender" required>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -136,8 +140,6 @@
                 </form>
             </div>
         </div>
-
-        <!-- Students Table -->
         <table id="students-table">
             <thead>
                 <tr>
@@ -145,7 +147,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Birthdate</th>
-                    <th>Gender</th>
+                    <th>Sex</th>
                     <th>Section</th>
                     <th>Phone</th>
                     <th>Email</th>
@@ -185,7 +187,7 @@
                                 >
                                     <i class="fas fa-edit" style="margin-right: -6px;"></i>Edit
                                 </a>
-                                <form action="{{ route('students.destroy', $student->student_id) }}" method="POST">
+                                <form action="{{ route('students.destroy', $student->student_id) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="delete-btn">
@@ -198,8 +200,6 @@
                 @endforeach
             </tbody>
         </table>
-
-        <!-- Pagination -->
         <div class="pagination">
             {{ $students->links() }}
         </div>
@@ -222,7 +222,6 @@
             }
         }
 
-        // Edit student functionality
         const editStudentModal = document.getElementById('editStudentModal');
         const closeEditStudentBtn = document.getElementById('closeEditStudentModalBtn');
         const editStudentForm = document.getElementById('editStudentForm');
@@ -239,7 +238,6 @@
                 document.getElementById('edit_section').value = this.dataset.section;
                 document.getElementById('edit_phone_number').value = this.dataset.phone;
                 document.getElementById('edit_email').value = this.dataset.email;
-                // Show picture preview if exists
                 const preview = document.getElementById('edit_picture_preview');
                 if(this.dataset.picture) {
                     preview.innerHTML = `<img src="${this.dataset.picture}" alt="Student Picture" width="50">`;
@@ -247,7 +245,6 @@
                     preview.innerHTML = '<span>No Picture</span>';
                 }
                 editStudentModal.style.display = "block";
-                // Set form action
                 editStudentForm.action = `/students/${this.dataset.id}`;
             }
         });
@@ -261,7 +258,6 @@
             }
         }
 
-        // Preview image before upload in edit modal
         document.getElementById('edit_picture').onchange = function() {
             const file = this.files[0];
             if (file) {
@@ -278,6 +274,27 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var userEmailSelect = document.getElementById('user_email');
+            if (userEmailSelect) {
+                userEmailSelect.addEventListener('change', function() {
+                    var selected = this.options[this.selectedIndex];
+                    var fullname = selected.getAttribute('data-fullname') || '';
+                    var phone = selected.getAttribute('data-phone') || '';
+                    document.getElementById('full_name').value = fullname;
+                    document.getElementById('phone_number').value = phone;
+                });
+            }
+        });
+
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to delete this student?')) {
+                    e.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 </html>

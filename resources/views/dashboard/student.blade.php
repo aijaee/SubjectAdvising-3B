@@ -46,7 +46,20 @@
                 </div>
             </div>
         @else
-            <p>No student account created by admin.</p>
+            <div class="cards-container">
+                <div class="row-user">
+                    <div class="card-user">
+                        <h3>Student Information</h3>
+                        <table id="student-details-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align:center;">Not Enrolled</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 </body>

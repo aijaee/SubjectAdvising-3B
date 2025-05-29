@@ -19,7 +19,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" id="registerForm">
             @csrf
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
@@ -34,5 +34,17 @@
             <p class="login-link">Already have an account? <a href="{{ route('login') }}">Login</a></p>
         </form>
     </div>
+    <script>
+        document.getElementById('registerForm').onsubmit = function(e) {
+            var pwd = this.password.value;
+            var hasLength = pwd.length >= 8;
+            var hasNumber = /[0-9]/.test(pwd);
+            var hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+            if (!(hasLength && hasNumber && hasSpecial)) {
+                alert('Password must be at least 8 characters, include a number and a special symbol.');
+                e.preventDefault();
+            }
+        };
+    </script>
 </body>
 </html>

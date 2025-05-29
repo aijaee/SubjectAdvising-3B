@@ -20,10 +20,17 @@
                 <input type="text" name="query" placeholder="Search by Subject Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                 <select name="year_level" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                     <option value="">-- Search by Year Level --</option>
-                    <option value="1" {{ request('year_level') == '1' ? 'selected' : '' }}>1</option>
-                    <option value="2" {{ request('year_level') == '2' ? 'selected' : '' }}>2</option>
-                    <option value="3" {{ request('year_level') == '3' ? 'selected' : '' }}>3</option>
-                    <option value="4" {{ request('year_level') == '4' ? 'selected' : '' }}>4</option>
+                    <option value="1" {{ request('year_level') == '1' ? 'selected' : '' }}>1st Year</option>
+                    <option value="2" {{ request('year_level') == '2' ? 'selected' : '' }}>2nd Year</option>
+                    <option value="3" {{ request('year_level') == '3' ? 'selected' : '' }}>3rd Year</option>
+                    <option value="4" {{ request('year_level') == '4' ? 'selected' : '' }}>4th Year</option>
+                </select>
+                <select name="duration" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="">-- Search by Duration --</option>
+                    <option value="1 Hour" {{ request('duration') == '1 Hour' ? 'selected' : '' }}>1 Hour</option>
+                    <option value="1 Hour 30 Mins" {{ request('duration') == '1 Hour 30 Mins' ? 'selected' : '' }}>1 Hour 30 Mins</option>
+                    <option value="2 Hours" {{ request('duration') == '2 Hours' ? 'selected' : '' }}>2 Hours</option>
+                    <option value="2 Hours 30 Mins" {{ request('duration') == '2 Hours 30 Mins' ? 'selected' : '' }}>2 Hours 30 Mins</option>
                 </select>
                 <button type="submit" class="search-btn" style="padding: 6px 16px; border-radius: 4px;">
                     <i class="fas fa-search"></i> Search
@@ -53,15 +60,27 @@
                     </div>
                     <div class="form-group">
                         <label for="duration">Duration</label>
-                        <input type="text" name="duration" id="duration">
+                        <select name="duration" id="duration" required>
+                            <option value="">-- Select Duration --</option>
+                            <option value="1 Hour">1 Hour</option>
+                            <option value="1 Hour 30 Mins">1 Hour 30 Mins</option>
+                            <option value="2 Hours">2 Hours</option>
+                            <option value="2 Hours 30 Mins">2 Hours 30 Mins</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year_level">Year Level</label>
+                        <select name="year_level" id="year_level" required>
+                            <option value="">-- Select Year Level --</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="instructor">Instructor</label>
                         <input type="text" name="instructor" id="instructor">
-                    </div>
-                    <div class="form-group">
-                        <label for="year_level">Year Level</label>
-                        <input type="number" name="year_level" id="year_level" min="1" max="4" step="1" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
                     </div>
                     <div class="form-group">
                         <label for="course_fee">Fee</label>
@@ -90,7 +109,13 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_duration">Duration:</label>
-                        <input type="text" name="duration" id="edit_duration">
+                        <select name="duration" id="edit_duration" required>
+                            <option value="">-- Select Duration --</option>
+                            <option value="1 Hour">1 Hour</option>
+                            <option value="1 Hour 30 Mins">1 Hour 30 Mins</option>
+                            <option value="2 Hours">2 Hours</option>
+                            <option value="2 Hours 30 Mins">2 Hours 30 Mins</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_instructor">Instructor:</label>
@@ -98,7 +123,13 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_year_level">Year Level:</label>
-                        <input type="number" name="year_level" id="edit_year_level" min="1" max="4" step="1" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
+                        <select name="year_level" id="edit_year_level" required>
+                            <option value="">-- Select Year Level --</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_course_fee">Fee:</label>
@@ -126,6 +157,12 @@
             </thead>
             <tbody>
                 @foreach ($courses as $course)
+                    @php
+                        $debugEnrollments = $course->enrollments()->get();
+                        $activeCount = $debugEnrollments->filter(function($enrollment) {
+                            return strtolower(trim($enrollment->enrollment_status)) === 'active';
+                        })->count();
+                    @endphp
                     <tr id="course-row-{{ $course->course_id }}">
                         <td class="course_id">{{ $course->course_id }}</td>
                         <td class="course_name">{{ $course->course_name }}</td>
@@ -135,7 +172,7 @@
                         <td class="year_level">{{ $course->year_level }}</td>
                         <td class="course_fee">{{ number_format($course->course_fee, 2) }}</td>
                         <td class="enrollments_count" style="text-align:center;">
-                            {{ isset($course->enrollments_count) ? $course->enrollments_count : 0 }}
+                            {{ $activeCount }}
                         </td>
                         <td>
                             <div style="display: flex; gap: 10px;">
@@ -150,7 +187,7 @@
                                     data-year_level="{{ $course->year_level }}"
                                     data-fee="{{ $course->course_fee }}"
                                 >Edit</button>
-                                <form action="{{ route('courses.destroy', $course->course_id) }}" method="POST">
+                                <form action="{{ route('courses.destroy', $course->course_id) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="delete-btn">Delete</button>
@@ -255,6 +292,15 @@
             })
             .catch(() => alert('Update failed!'));
         };
+
+        // Add confirmation for delete buttons
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to delete this subject?')) {
+                    e.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 </html>

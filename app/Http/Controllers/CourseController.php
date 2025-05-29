@@ -12,15 +12,27 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        // Ensure the enrollments() relationship exists in the Course model
-        $query = Course::withCount('enrollments');
+        $query = Course::query();
         if ($request->filled('query')) {
             $query->where('course_name', 'like', '%' . $request->input('query') . '%');
         }
         if ($request->filled('year_level')) {
             $query->where('year_level', $request->input('year_level'));
         }
+        if ($request->filled('duration')) {
+            $query->where('duration', $request->input('duration'));
+        }
         $courses = $query->paginate(10);
+
+        // Manually count active enrollments for each course
+        foreach ($courses as $course) {
+            // Get all enrollments for this course
+            $enrollments = \App\Models\Enrollment::where('course_id', $course->course_id)->get();
+            // Count only those with status 'Active' (case-insensitive, trimmed)
+            $course->active_enrollments_count = $enrollments->filter(function($enrollment) {
+                return strtolower(trim($enrollment->enrollment_status)) === 'active';
+            })->count();
+        }
 
         return view('courses.index', compact('courses'));
     }

@@ -31,8 +31,18 @@ class UserController extends Controller
             'fullname' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone_number' => 'nullable|string|max:50',
-            'password' => 'required|string|confirmed',
+            'password' => [
+                'required',
+                'string',
+                'confirmed',
+                'min:8',
+                'regex:/[0-9]/', // at least one number
+                'regex:/[^A-Za-z0-9]/', // at least one special character
+            ],
             'user_role' => 'required|string|in:Student,Admin',
+        ], [
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.regex' => 'Password must include at least one number and one special symbol.',
         ]);
 
         User::create([
@@ -59,7 +69,17 @@ class UserController extends Controller
             'phone_number' => 'nullable|string|max:50',
             'user_role' => 'required|in:Student,Admin',
             'current_password' => 'required|string',
-            'password' => 'nullable|string|confirmed',
+            'password' => [
+                'nullable',
+                'string',
+                'confirmed',
+                'min:8',
+                'regex:/[0-9]/', // at least one number
+                'regex:/[^A-Za-z0-9]/', // at least one special character
+            ],
+        ], [
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.regex' => 'Password must include at least one number and one special symbol.',
         ]);
 
         // Check current password

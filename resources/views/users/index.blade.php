@@ -14,7 +14,6 @@
     <div id="content">
         <h2>User List</h2>
 
-        <!-- Debug/Status Prompt -->
         @if(session('success'))
             <div class="alert success">{{ session('success') }}</div>
         @endif
@@ -28,7 +27,6 @@
             </div>
         @endif
 
-                <!-- Search and Filter -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('users.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="query" placeholder="Search by Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
@@ -43,14 +41,12 @@
             </form>
         </div>
 
-        <!-- Add New User Button -->
         <div style="text-align: center;">
             <button id="openUserModalBtn" class="enroll-student-btn" type="button">
                 <i class="fas fa-edit" style="margin-right: 10px;"></i>Add New User
             </button>
         </div>
 
-        <!-- Add User Modal -->
         <div id="addUserModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeUserModalBtn">&times;</span>
@@ -79,6 +75,9 @@
                     <div class="form-group" style="width: 100%; max-width: 350px;">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" required autocomplete="new-password">
+                        <small style="color:#888; margin-bottom:10px; display:block;">
+                            Password must be at least 8 characters, include a number and a special symbol.
+                        </small>
                     </div>
                     <div class="form-group" style="width: 100%; max-width: 350px;">
                         <label for="password_confirmation">Confirm Password</label>
@@ -89,7 +88,6 @@
             </div>
         </div>
 
-        <!-- Edit User Modal -->
         <div id="editUserModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEditUserModalBtn">&times;</span>
@@ -124,6 +122,9 @@
                     <div class="form-group" style="width: 100%; max-width: 350px;">
                         <label for="edit_password">New Password</label>
                         <input type="password" id="edit_password" name="password" placeholder="New Password">
+                        <small style="color:#888; margin-bottom:10px; display:block;">
+                            Password must be at least 8 characters, include a number and a special symbol.
+                        </small>
                     </div>
                     <div class="form-group" style="width: 100%; max-width: 350px;">
                         <label for="edit_password_confirmation">Confirm New Password</label>
@@ -134,7 +135,6 @@
             </div>
         </div>
 
-        <!-- Users Table -->
         <table id="users-table">
             <thead>
                 <tr>
@@ -171,7 +171,7 @@
                                 >
                                     <i class="fas fa-edit" style="margin-right: -6px;"></i>Edit
                                 </button>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;">
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="delete-btn">
@@ -185,14 +185,12 @@
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <div class="pagination">
             {{ $users->links() }}
         </div>
     </div>
 
     <script>
-        // CREATE modal
         const userModal = document.getElementById('addUserModal');
         const openUserBtn = document.getElementById('openUserModalBtn');
         const closeUserBtn = document.getElementById('closeUserModalBtn');
@@ -210,7 +208,6 @@
             }
         }
 
-        // EDIT modal
         const editUserModal = document.getElementById('editUserModal');
         const closeEditUserBtn = document.getElementById('closeEditUserModalBtn');
         const editUserForm = document.getElementById('editUserForm');
@@ -224,7 +221,6 @@
         document.querySelectorAll('.edit-user-btn').forEach(btn => {
             btn.onclick = function(e) {
                 e.preventDefault();
-                // Fill modal fields
                 document.getElementById('edit_user_id').value = this.dataset.id;
                 document.getElementById('edit_fullname').value = this.dataset.fullname;
                 document.getElementById('edit_email').value = this.dataset.email;
@@ -233,18 +229,48 @@
                 document.getElementById('edit_password').value = '';
                 document.getElementById('edit_password_confirmation').value = '';
                 document.getElementById('current_password').value = '';
-                // Show the modal
                 if (editUserModal && editUserForm) {
                     editUserModal.style.display = "block";
-                    // Set the correct form action using a full URL (not Blade inside JS)
                     editUserForm.action = window.location.origin + "/users/" + this.dataset.id;
                 }
             }
         });
 
-        // Ensure the edit form submits as POST with _method=PUT (handled by @method('PUT'))
-        // No need to set editUserForm.method = "POST"; because the form already has @method('PUT')
+        if (addUserForm) {
+            addUserForm.onsubmit = function(e) {
+                var pwd = this.password.value;
+                var hasLength = pwd.length >= 8;
+                var hasNumber = /[0-9]/.test(pwd);
+                var hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+                if (!(hasLength && hasNumber && hasSpecial)) {
+                    alert('Password must be at least 8 characters, include a number and a special symbol.');
+                    e.preventDefault();
+                }
+            };
+        }
 
+        if (editUserForm) {
+            editUserForm.onsubmit = function(e) {
+                var pwd = this.password.value;
+                if (pwd.length > 0) {
+                    var hasLength = pwd.length >= 8;
+                    var hasNumber = /[0-9]/.test(pwd);
+                    var hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+                    if (!(hasLength && hasNumber && hasSpecial)) {
+                        alert('Password must be at least 8 characters, include a number and a special symbol.');
+                        e.preventDefault();
+                    }
+                }
+            };
+        }
+
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to delete this user?')) {
+                    e.preventDefault();
+                }
+            });
+        });
 
         window.onclick = function(event) {
             if (event.target == userModal) {

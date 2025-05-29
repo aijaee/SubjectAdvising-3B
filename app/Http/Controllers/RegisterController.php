@@ -21,8 +21,18 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string|max:50',
-            'password' => 'required|string|confirmed',
+            'password' => [
+                'required',
+                'string',
+                'confirmed',
+                'min:8',
+                'regex:/[0-9]/', // at least one number
+                'regex:/[^A-Za-z0-9]/', // at least one special character
+            ],
             'user_role' => 'required|in:Student,Admin',
+        ], [
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.regex' => 'Password must include at least one number and one special symbol.',
         ]);
 
         User::create([

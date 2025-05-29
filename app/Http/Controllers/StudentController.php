@@ -24,7 +24,12 @@ class StudentController extends Controller
         })
         ->paginate(10);
 
-        return view('students.index', compact('students'));
+        // Get user student accounts not yet assigned as students
+        $userStudents = \App\Models\User::where('user_role', 'Student')
+            ->whereNotIn('email', Student::pluck('email'))
+            ->get();
+
+        return view('students.index', compact('students', 'userStudents'));
     }
 
     public function create()
