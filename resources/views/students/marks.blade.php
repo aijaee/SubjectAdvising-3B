@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Marks</title>
+    <title>Your Grades</title>
     <link rel="stylesheet" href="{{ asset('css/common-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/students-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
@@ -12,7 +12,7 @@
     @include('layouts.sidebar')
 
     <div id="content">
-        <h2>Your Marks</h2>
+        <h2>Your Grades</h2>
         @if(isset($student) && $student)
             <div style="margin-bottom: 15px; color: #333; background: #f8f9fa; padding: 10px; border-radius: 5px;">
                 <strong>Student ID:</strong> {{ $student->student_id }}<br>
@@ -38,8 +38,8 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Course</th>
-                    <th>Mark</th>
+                    <th>Subject</th>
+                    <th>Grade</th>
                     <th>Status</th>
                     <th>Remark</th>
                     <th>Date</th>
@@ -58,7 +58,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="text-align:center;">No marks found.</td>
+                        <td colspan="6" style="text-align:center;">No grades found.</td>
                     </tr>
                 @endforelse
             </tbody>

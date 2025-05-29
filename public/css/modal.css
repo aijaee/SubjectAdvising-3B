@@ -4,19 +4,19 @@
     z-index: 1000;
     left: 0; top: 0; width: 100%; height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(80,80,120,0.15);
 }
 .modal-content {
-    background-color: #222;
+    background-color: #fff;
     margin: 5% auto;
     padding: 30px;
     border-radius: 10px;
     width: 400px;
-    color: #fff;
+    color: #222;
     position: relative;
 }
 .close {
-    color: #aaa;
+    color: #888;
     position: absolute;
     right: 20px;
     top: 10px;
@@ -24,4 +24,4 @@
     font-weight: bold;
     cursor: pointer;
 }
-.close:hover { color: #fff; }
+.close:hover { color: #222; }

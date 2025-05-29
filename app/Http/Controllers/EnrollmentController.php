@@ -15,7 +15,8 @@ class EnrollmentController extends Controller
     public function index(Request $request)
     {
         $students = Student::all();
-        $courses = Course::all();
+        // Fix: eager load enrollments_count for each course
+        $courses = \App\Models\Course::withCount('enrollments')->get();
         $enrollments = Enrollment::with(['student', 'course'])
             ->when($request->input('query'), function($q) use ($request) {
                 $q->whereHas('student', function($q2) use ($request) {

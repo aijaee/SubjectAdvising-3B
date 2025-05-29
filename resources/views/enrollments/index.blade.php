@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course List</title>
+    <title>Subject List</title>
     <link rel="stylesheet" href="{{ asset('css/common-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/students-style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
@@ -17,7 +17,7 @@
         <!-- Search Bar -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('enrollments.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" name="query" placeholder="Search by Student or Course..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" name="query" placeholder="Search by Student or Subject..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                 <select name="status" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                     <option value="">-- Search by Status --</option>
                     <option value="Active" {{ request('status') == 'Active' ? 'selected' : '' }}>Active</option>
@@ -52,9 +52,9 @@
                         </select>
                     </div>
                     <div class="form-group" style="width: 100%; max-width: 350px;">
-                        <label for="course_id">Course:</label>
+                        <label for="course_id">Subject:</label>
                         <select name="course_id" id="course_id" required>
-                            <option value="">-- Select Course --</option>
+                            <option value="">-- Select Subject --</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->course_id }}">
                                     [{{ $course->course_id }}] {{ $course->course_name ?? $course->name }}
@@ -84,7 +84,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Student Name</th>
-                    <th>Course</th>
+                    <th>Subject</th>
                     <th>Enrollment Date</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -129,7 +129,7 @@
                                         data-course="{{ $enrollment->course->course_name ?? '' }}"
                                         @if($enrollment->enrollment_status == 'On Reservation') disabled aria-disabled="true" @endif
                                 >
-                                    <i class="fas fa-plus-circle"></i> Mark
+                                    <i class="fas fa-plus-circle"></i> Grade
                                 </button>
                             </div>
                         </td>
@@ -156,9 +156,9 @@
                         </select>
                     </div>
                     <div class="form-group" style="width: 100%; max-width: 350px;">
-                        <label for="edit_course_id">Course:</label>
+                        <label for="edit_course_id">Subject:</label>
                         <select name="course_id" id="edit_course_id" required>
-                            <option value="">-- Select Course --</option>
+                            <option value="">-- Select Subject --</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->course_id }}">
                                     [{{ $course->course_id }}] {{ $course->course_name ?? $course->name }}
@@ -186,7 +186,7 @@
         <div id="markModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeMarkModalBtn">&times;</span>
-                <h2>Add Mark</h2>
+                <h2>Add Grade</h2>
                 <form id="markForm" action="{{ route('marks.store') }}" method="POST" class="form-container">
                     @csrf
                     <input type="hidden" id="mark_enrollment_id" name="enrollment_id">
@@ -195,7 +195,7 @@
                         <input type="text" id="mark_enrollment_info" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="mark">Mark</label>
+                        <label for="mark">Grade</label>
                         <input type="number" id="mark" name="mark" min="1" max="5" step="1" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
                     </div>
                     <div class="form-group">
@@ -214,7 +214,7 @@
                         <label for="mark_date">Date</label>
                         <input type="date" id="mark_date" name="mark_date">
                     </div>
-                    <button type="submit" class="enroll-btn">Add Mark</button>
+                    <button type="submit" class="enroll-btn">Add Grade</button>
                 </form>
             </div>
         </div>

@@ -9,12 +9,13 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background: #f7f7fa;
 }
 
 .register-container {
-    background-color: #242424;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
     padding: 30px;
     width: 400px;
     max-width: 400px;
@@ -23,7 +24,7 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #a65ae9;
+    color: #6c63ff;
 }
 
 form {
@@ -37,47 +38,47 @@ select {
     width: 100%;
     padding: 15px;
     margin-bottom: 20px;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #242424;
-    color: #fcfcfc;
+    background-color: #f7f7fa;
+    color: #222;
     font-size: 16px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px rgba(80, 80, 120, 0.03);
     transition: box-shadow 0.3s ease-in-out;
     outline: none;
 }
 
 input:focus {
-    outline: 1px solid #a65ae9;
+    outline: 1px solid #6c63ff;
 }
 
 .btn {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #a65ae9;
+    background-color: #6c63ff;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px rgba(80, 80, 120, 0.08);
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
     width: 100%;
 }
 
 .btn:hover {
-    background-color: #8547bb;
+    background-color: #554ee1;
 }
 
 .login-link {
     text-align: center;
     margin-top: 15px;
     font-size: 14px;
-    color: #ffffff; /* Change text color to white */
+    color: #555;
 }
 
 .login-link a {
-    color: #a65ae9;
+    color: #6c63ff;
     text-decoration: none;
 }
 

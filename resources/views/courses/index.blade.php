@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course List</title>
+    <title>Subject List</title>
     <link rel="stylesheet" href="{{ asset('css/common-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/students-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
@@ -12,12 +12,12 @@
     @include('layouts.sidebar')
 
     <div id="content">
-        <h2>Course List</h2>
+        <h2>Subject List</h2>
 
         <!-- Search and Filter -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('courses.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" name="query" placeholder="Search by Course Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" name="query" placeholder="Search by Subject Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                 <select name="year_level" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                     <option value="">-- Search by Year Level --</option>
                     <option value="1" {{ request('year_level') == '1' ? 'selected' : '' }}>1</option>
@@ -33,14 +33,14 @@
 
         <!-- Add New Course Button -->
         <div class="add-student-container">
-            <button id="openModalBtn" class="enroll-student-btn" type="button">Add New Course</button>
+            <button id="openModalBtn" class="enroll-student-btn" type="button">Add New Subject</button>
         </div>
 
         <!-- Add Course Modal -->
         <div id="addCourseModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeModalBtn">&times;</span>
-                <h2>Add Course</h2>
+                <h2>Add Subject</h2>
                 <form action="{{ route('courses.store') }}" method="POST" class="form-container">
                     @csrf
                     <div class="form-group">
@@ -67,7 +67,7 @@
                         <label for="course_fee">Fee</label>
                         <input type="number" name="course_fee" id="course_fee" required>
                     </div>
-                    <button type="submit" class="enroll-btn">Add Course</button>
+                    <button type="submit" class="enroll-btn">Add Subject</button>
                 </form>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div id="editCourseModal" class="modal" style="display:none;">
             <div class="modal-content">
                 <span class="close" id="closeEditModalBtn">&times;</span>
-                <h2>Edit Course</h2>
+                <h2>Edit Subject</h2>
                 <form id="editCourseForm" method="POST" class="form-container">
                     @csrf
                     @method('PUT')
@@ -104,7 +104,7 @@
                         <label for="edit_course_fee">Fee:</label>
                         <input type="number" name="course_fee" id="edit_course_fee" required>
                     </div>
-                    <button type="submit" class="enroll-btn">Update Course</button>
+                    <button type="submit" class="enroll-btn">Update Subject</button>
                 </form>
             </div>
         </div>
@@ -119,7 +119,7 @@
                     <th>Duration (Hr)</th>
                     <th>Instructor</th>
                     <th>Year Level</th>
-                    <th>Fee ($)</th>
+                    <th>Fee (₱)</th>
                     <th>Enrolled Students</th>
                     <th>Actions</th>
                 </tr>
@@ -134,7 +134,9 @@
                         <td class="instructor">{{ $course->instructor }}</td>
                         <td class="year_level">{{ $course->year_level }}</td>
                         <td class="course_fee">{{ number_format($course->course_fee, 2) }}</td>
-                        <td class="enrollments_count" style="text-align:center;">{{ $course->enrollments_count ?? 0 }}</td>
+                        <td class="enrollments_count" style="text-align:center;">
+                            {{ isset($course->enrollments_count) ? $course->enrollments_count : 0 }}
+                        </td>
                         <td>
                             <div style="display: flex; gap: 10px;">
                                 <button

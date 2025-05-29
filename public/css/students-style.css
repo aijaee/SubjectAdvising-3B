@@ -9,22 +9,24 @@
 .search-bar select {
     width: 300px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
+    background: #f7f7fa;
+    color: #222;
     transition: border-color 0.3s ease;
 }
 
 .search-bar input[type="text"]:focus,
 .search-bar select:focus {
-    border-color: #4CAF50;
+    border-color: #6c63ff;
     outline: none;
 }
 
 .search-bar .search-btn {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #6c63ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -34,7 +36,7 @@
 }
 
 .search-bar .search-btn:hover {
-    background-color: #45a049;
+    background-color: #554ee1;
 }
 
 .add-student-container {
@@ -45,7 +47,7 @@
 .enroll-student-btn {
     display: inline-block;
     text-decoration: none;
-    background-color: #4CAF50;
+    background-color: #6c63ff;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -54,13 +56,13 @@
 }
 
 .enroll-student-btn:hover {
-    background-color: #45a049;
+    background-color: #554ee1;
 }
 
 #content h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #8547bb;
+    color: #6c63ff;
     font-size: 24px;
 }
 
@@ -72,7 +74,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #8547bb;
+    color: #6c63ff;
 }
 
 .form-group input[type="text"],
@@ -82,18 +84,18 @@
 .form-group select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
-    color: #333;
-    background-color: #fff;
+    color: #222;
+    background-color: #f7f7fa;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #4CAF50;
+    border-color: #6c63ff;
     outline: none;
 }
 
@@ -101,7 +103,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #6c63ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -112,7 +114,7 @@
 }
 
 .enroll-btn:hover {
-    background-color: #45a049;
+    background-color: #554ee1;
 }
 
 .form-group input[type="file"] {
@@ -145,15 +147,16 @@
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
+    justify-content: center;
 }
 
 .edit-btn {
-    background-color: #007bff;
+    background-color: #6c63ff;
     color: white;
 }
 
 .edit-btn:hover {
-    background-color: #0056b3;
+    background-color: #554ee1;
 }
 
 .delete-btn {

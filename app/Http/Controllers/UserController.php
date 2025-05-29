@@ -59,7 +59,7 @@ class UserController extends Controller
             'phone_number' => 'nullable|string|max:50',
             'user_role' => 'required|in:Student,Admin',
             'current_password' => 'required|string',
-            'password' => 'nullable|string|confirmed', // removed min:6
+            'password' => 'nullable|string|confirmed',
         ]);
 
         // Check current password

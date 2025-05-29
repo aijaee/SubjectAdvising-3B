@@ -25,10 +25,10 @@
 .card {
     width: calc(50% - 10px);
     padding: 70px;
-    background-color: #242424;
-    color: #fcfcfc;
+    background-color: #fff;
+    color: #222;
     font-size: 22px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
     border-radius: 10px;
     text-align: center;
 }
@@ -36,10 +36,10 @@
 .card-user {
     width: calc(50% - 10px);
     padding: 70px;
-    background-color: #242424;
-    color: #fcfcfc;
+    background-color: #fff;
+    color: #222;
     font-size: 22px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
     border-radius: 10px;
 }
 
@@ -65,9 +65,9 @@ th {
 }
 
 .card span {
-    color: #fcfcfc;
+    color: #222;
 }
 
 .card i {
-    color: #a65ae9;
+    color: #6c63ff;
 }

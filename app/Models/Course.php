@@ -24,6 +24,6 @@ class Course extends Model
 
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class, 'course_id', 'course_id');
+        return $this->hasMany(\App\Models\Enrollment::class, 'course_id', 'course_id');
     }
 }

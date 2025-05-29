@@ -1,19 +1,19 @@
 :root {
     /* Colors */
-    --primary-color: #a65ae9;
-    --primary-color-selected: #8547bb;
-    --background-color: #191919;
-    --sidebar-color: #242424;
-    --panel-color: #242424;
-    --text-on-panel-color: #828282;
-    --tr-color-darker: #222222;
-    --tr-color-lighter: #252525;
-    --background-color-other: #454545;
-    --text-color-light: #fcfcfc;
-    --th-color: #2f2f2f;
+    --primary-color: #6c63ff;
+    --primary-color-selected: #554ee1;
+    --background-color: #f7f7fa;
+    --sidebar-color: #fff;
+    --panel-color: #fff;
+    --text-on-panel-color: #555;
+    --tr-color-darker: #f3f3f8;
+    --tr-color-lighter: #fff;
+    --background-color-other: #e9e9f3;
+    --text-color-light: #222;
+    --th-color: #ececff;
 
     /* Box Shadows */
-    --primary-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    --primary-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
 }   
 
 /* scrollbar */
@@ -87,7 +87,7 @@ body {
 
 #user-info {
     margin-top: 100%;
-    color: #ecf0f1;
+    color: #444;
     text-align: center;
 }
 
@@ -123,6 +123,7 @@ table {
     margin-top: 20px;
     overflow: hidden;
     box-shadow: var(--primary-shadow);
+    background: #fff;
 }
 
 th, td {
@@ -137,7 +138,7 @@ td {
 
 th {
     background-color: var(--th-color);
-    color: #fff;
+    color: #444;
 }
 
 tr:nth-child(odd) {
@@ -172,7 +173,6 @@ tr:nth-child(even) {
 
 .search-bar {
     display: flex;
-    /* justify-content: space-between; */
     margin-top: 20px;
     background-color: transparent;
     border-radius: 5px;
@@ -194,9 +194,8 @@ tr:nth-child(even) {
 .search-field {
     width: 48%;
     background-color: var(--panel-color);
-    /* outline: 2px solid var(--primary-color); */
     box-shadow: var(--primary-shadow);
-    color: white;
+    color: #222;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -217,7 +216,7 @@ tr:nth-child(even) {
 .search-btn,
 .logout-btn {
     background-color: var(--primary-color);
-    color: var(--text-color-light);
+    color: #fff;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -232,7 +231,7 @@ tr:nth-child(even) {
 .search-btn:hover,
 .logout-btn:hover {
     background-color: var(--primary-color-selected);
-    color: var(--text-color-light);
+    color: #fff;
 }
 
 .action-buttons {
@@ -260,23 +259,23 @@ tr:nth-child(even) {
 }
 
 .edit-btn {
-    background-color: #36995f;
+    background-color: #6c63ff;
     color: #fff;
     transition: background-color 0.3s;
 }
 
 .edit-btn:hover {
-    background-color: #2c804f;
+    background-color: #554ee1;
 }
 
 .delete-btn {
-    background-color: #b93b2d;
+    background-color: #f44336;
     color: #fff;
     transition: background-color 0.3s;
 }
 
 .delete-btn:hover {
-    background-color: #a23327;
+    background-color: #d32f2f;
 }
 
 .view-btn {
@@ -290,15 +289,15 @@ tr:nth-child(even) {
 }
 
 .mark-btn {
-    background-color: #e67e22;
-    color: #fff;
+    background-color: #ffd580;
+    color: #222;
     transition: background-color 0.3s;
 }
 
 /* Style for disabled button */
 .mark-btn[disabled] {
-    opacity: 0.5; /* Reduce opacity */
-    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .mark-btn[disabled],
@@ -309,7 +308,7 @@ tr:nth-child(even) {
 }
 
 .mark-btn:hover {
-    background-color: #d35400;
+    background-color: #ffe7b3;
 }
 
 .cards-container {
@@ -323,7 +322,7 @@ tr:nth-child(even) {
     background-color: var(--panel-color);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
     text-align: center;
     flex: 1;
     margin-right: 20px;
@@ -331,12 +330,12 @@ tr:nth-child(even) {
 }
 
 .card:last-child {
-    margin-right: 0; /* Remove margin-right for the last card */
+    margin-right: 0;
 }
 
 .card i {
     font-size: 36px;
-    color: #3498db;
+    color: #6c63ff;
     margin-bottom: 10px;
 }
 
@@ -358,30 +357,29 @@ tr:nth-child(even) {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(80, 80, 120, 0.15);
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: var(--background-color);
+    background-color: #fff;
     border-radius: 20px;
     padding: 20px;
     box-sizing: border-box;
     width: 450px;
     position: relative;
+    color: #222;
 }
-
 
 .close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: #b9b9b9;
+    color: #888;
     font-size: 18px;
     cursor: pointer;
 }
-
 
 .modal-content h2 {
     color: var(--primary-color);
@@ -395,7 +393,7 @@ tr:nth-child(even) {
     display: block;
     font-size: 14px;
     margin-bottom: 0px;
-    color: #eee;
+    color: #444;
 }
 
 .form-group input,
@@ -403,10 +401,10 @@ tr:nth-child(even) {
 .form-group textarea {
     width: 100%;
     padding: 5px;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #303245;
-    color: #eee;
+    background-color: #f7f7fa;
+    color: #222;
     box-sizing: border-box;
     outline: none;
     margin-top: 10px;
@@ -415,10 +413,10 @@ tr:nth-child(even) {
 
 .form-group input[type="number"] {
     padding: 5px;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #eee;
-    color: #303245;
+    background-color: #fff;
+    color: #222;
     box-sizing: border-box;
     outline: none;
     margin-top: 10px;
@@ -430,7 +428,7 @@ tr:nth-child(even) {
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
-    color: #eee;
+    color: #fff;
     cursor: pointer;
     font-size: 18px;
     height: 50px;
@@ -447,12 +445,10 @@ tr:nth-child(even) {
     margin-right: 10px;
 }
 
-
 .modal p{
-color:#fff;
-text-align:center;
+    color:#222;
+    text-align:center;
 }
-
 
 .card span i{ color:#f0a500; font-size:27px; }
 
@@ -493,15 +489,6 @@ text-align:center;
 
 .alert{ padding: 20px; border-radius: 5px; text-align: center; position: relative;
     width: 100%; margin: 20px auto; color: #333; font-size: 16px; box-sizing: border-box;}
-
-.alert.error{ background-color: #ffe0e0; color: #d8000c; border: 1px solid #d8000c; }
-
-.alert.success{ background-color: #e6ffe6; color: #006600; border: 1px solid #006600;  }
-
-.close-alert{ position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 24px;
-                padding: 1px 4px; transition: color 0.2s ease-in-out; }
-
-.close-alert:hover{ color:#000; }
 
 
 

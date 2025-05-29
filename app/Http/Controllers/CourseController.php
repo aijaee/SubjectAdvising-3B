@@ -10,15 +10,18 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-$courses = Course::when(request('query'), function($q) {
-        $q->where('course_name', 'like', '%' . request('query') . '%');
-    })
-    ->when(request('year_level'), function($q) {
-        $q->where('year_level', request('year_level'));
-    })
-    ->paginate(10);
+        // Ensure the enrollments() relationship exists in the Course model
+        $query = Course::withCount('enrollments');
+        if ($request->filled('query')) {
+            $query->where('course_name', 'like', '%' . $request->input('query') . '%');
+        }
+        if ($request->filled('year_level')) {
+            $query->where('year_level', $request->input('year_level'));
+        }
+        $courses = $query->paginate(10);
+
         return view('courses.index', compact('courses'));
     }
 
@@ -69,14 +72,19 @@ $courses = Course::when(request('query'), function($q) {
     public function update(Request $request, $id)
     {
         $course = Course::findOrFail($id);
-        $course->update($request->all());
+        $validated = $request->validate([
+            'course_name' => 'required',
+            'description' => 'nullable',
+            'duration' => 'nullable',
+            'instructor' => 'nullable',
+            'year_level' => 'nullable',
+            'course_fee' => 'nullable|numeric',
+        ]);
+        $course->update($validated);
 
-        // Return JSON if AJAX
         if ($request->expectsJson() || $request->isJson()) {
             return response()->json(['success' => true]);
         }
-
-        // Fallback for normal form submission
         return redirect()->route('courses.index')->with('success', 'Course updated!');
     }
 

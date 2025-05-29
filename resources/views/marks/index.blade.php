@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marks List</title>
+    <title>Grades List</title>
     <link rel="stylesheet" href="{{ asset('css/common-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/students-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+    <style>
+        #students-table a {
+            color: #000 !important;
+            text-decoration: none !important;
+        }
+    </style>
 </head>
 <body>
     @include('layouts.sidebar')
 
     <div id="content">
-        <h2>Marks List</h2>
+        <h2>Grades List</h2>
 
         <!-- Add Mark Button -->
         <div style="text-align: center;">
             <button id="openMarkModalBtn" class="enroll-student-btn" type="button">
-                <i class="fas fa-edit" style="margin-right: -6px;"></i>Add New Mark
+                <i class="fas fa-edit" style="margin-right: -6px;"></i>Add New Grade
             </button>
         </div>
 
@@ -25,7 +31,7 @@
         <div id="addMarkModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeMarkModalBtn">&times;</span>
-                <h2>Add New Mark</h2>
+                <h2>Add New Grade</h2>
                 <form action="{{ route('marks.store') }}" method="POST" class="form-container">
                     @csrf
                     <div class="form-group">
@@ -42,7 +48,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="mark">Mark</label>
+                        <label for="mark">Grade</label>
                         <input type="number" id="mark" name="mark" min="1" max="4" step="1" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
                     </div>
                     <div class="form-group">
@@ -59,9 +65,9 @@
                     </div>
                     <div class="form-group">
                         <label for="mark_date">Date</label>
-                        <input type="date" id="mark_date" name="mark_date">
+                        <input type="date" id="mark_date" name="mark_date" value="{{ date('Y-m-d') }}">
                     </div>
-                    <button type="submit" class="enroll-btn">Add Mark</button>
+                    <button type="submit" class="enroll-btn">Add Grade</button>
                 </form>
             </div>
         </div>
@@ -70,7 +76,7 @@
         <div id="editMarkModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEditMarkModalBtn">&times;</span>
-                <h2>Edit Mark</h2>
+                <h2>Edit Grade</h2>
                 <form id="editMarkForm" method="POST" class="form-container">
                     @csrf
                     @method('PUT')
@@ -88,7 +94,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit_mark">Mark</label>
+                        <label for="edit_mark">Grade</label>
                         <input type="number" id="edit_mark" name="mark" min="1" max="5" step="1" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
                     </div>
                     <div class="form-group">
@@ -105,9 +111,9 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_mark_date">Date</label>
-                        <input type="date" id="edit_mark_date" name="mark_date">
+                        <input type="date" id="edit_mark_date" name="mark_date" value="{{ date('Y-m-d') }}">
                     </div>
-                    <button type="submit" class="enroll-btn">Update Mark</button>
+                    <button type="submit" class="enroll-btn">Update Grade</button>
                 </form>
             </div>
         </div>
@@ -119,8 +125,8 @@
                     <th>ID</th>
                     <th>Enrollment</th>
                     <th>Student</th>
-                    <th>Course</th>
-                    <th>Marks</th>
+                    <th>Subject</th>
+                    <th>Grade</th>
                     <th>Status</th>
                     <th>Remark</th>
                     <th>Date</th>
@@ -133,27 +139,21 @@
                         <td>{{ $mark->mark_id }}</td>
                         <td>
                             @if($mark->enrollment)
-                                <a href="{{ route('enrollments.edit', $mark->enrollment->enrollment_id) }}" style="color: #fff; text-decoration: none;">
-                                    {{ $mark->enrollment->enrollment_id }}
-                                </a>
+                                {{ $mark->enrollment->enrollment_id }}
                             @else
                                 N/A
                             @endif
                         </td>
                         <td>
                             @if($mark->enrollment && $mark->enrollment->student)
-                                <a href="{{ route('students.edit', $mark->enrollment->student->student_id) }}" style="color: #fff; text-decoration: none;">
-                                    {{ $mark->enrollment->student->full_name }}
-                                </a>
+                                {{ $mark->enrollment->student->full_name }}
                             @else
                                 N/A
                             @endif
                         </td>
                         <td>
                             @if($mark->enrollment && $mark->enrollment->course)
-                                <a href="{{ route('courses.edit', $mark->enrollment->course->course_id) }}" style="color: #fff; text-decoration: none;">
-                                    {{ $mark->enrollment->course->course_name }}
-                                </a>
+                                {{ $mark->enrollment->course->course_name }}
                             @else
                                 N/A
                             @endif
@@ -201,26 +201,27 @@
     <script>
         // CREATE modal
         const markModal = document.getElementById('addMarkModal');
+        markModal.style.display = "none";
         const openMarkBtn = document.getElementById('openMarkModalBtn');
         const closeMarkBtn = document.getElementById('closeMarkModalBtn');
 
         openMarkBtn.onclick = function() {
             markModal.style.display = "block";
         }
+
         closeMarkBtn.onclick = function() {
             markModal.style.display = "none";
         }
+
         window.onclick = function(event) {
             if (event.target == markModal) {
                 markModal.style.display = "none";
-            }
-            if (event.target == editMarkModal) {
-                editMarkModal.style.display = "none";
             }
         }
 
         // EDIT modal
         const editMarkModal = document.getElementById('editMarkModal');
+        editMarkModal.style.display = "none";
         const closeEditMarkBtn = document.getElementById('closeEditMarkModalBtn');
         const editMarkForm = document.getElementById('editMarkForm');
 

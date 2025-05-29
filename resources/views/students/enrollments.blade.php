@@ -64,9 +64,9 @@
                     </div>
                     {{-- Course ID: show both ID and name in dropdown --}}
                     <div class="form-group" style="width: 100%; max-width: 350px;">
-                        <label for="course_id">Course <span style="color:red">*</span></label>
+                        <label for="course_id">Subject <span style="color:red">*</span></label>
                         <select id="course_id" name="course_id" required>
-                            <option value="">-- Select Course --</option>
+                            <option value="">-- Select Subject --</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->course_id }}" data-name="{{ $course->course_name ?? $course->name }}" {{ old('course_id') == $course->course_id ? 'selected' : '' }}>
                                     [{{ $course->course_id }}] {{ $course->course_name ?? $course->name }}
@@ -97,8 +97,8 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Course</th>
-                    <th>Course ID</th>
+                    <th>Subject</th>
+                    <th>Subject ID</th>
                     <th>Status</th>
                 </tr>
             </thead>

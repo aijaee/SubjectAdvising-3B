@@ -22,7 +22,7 @@
                     </div>
                     <div class="card">
                         <i class="fas fa-graduation-cap"></i>
-                        <h3>Total Courses</h3>
+                        <h3>Total Subjects</h3>
                         <span>{{ $courses->count() }}</span>
                     </div>
                     <div class="card">
