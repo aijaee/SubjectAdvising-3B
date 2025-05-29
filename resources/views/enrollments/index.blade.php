@@ -14,7 +14,6 @@
     <div id="content">
         <h2>Enrollments</h2>
 
-        <!-- Search Bar -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('enrollments.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="query" placeholder="Search by Student Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
@@ -37,14 +36,12 @@
             </form>
         </div>
 
-        <!-- Add Enrollment Button -->
         <div style="text-align: center;">
             <button id="openEnrollmentModalBtn" class="enroll-student-btn" type="button">
                 <i class="fas fa-plus"></i>Add Enrollment
             </button>
         </div>
 
-        <!-- Add Enrollment Modal -->
         <div id="addEnrollmentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEnrollmentModalBtn">&times;</span>
@@ -86,7 +83,6 @@
             </div>
         </div>
 
-        <!-- Enrollment Table -->
         <table id="enrollmentTable">
             <thead>
                 <tr>
@@ -108,7 +104,6 @@
                         <td>{{ $enrollment->enrollment_status }}</td>
                         <td>
                             <div class="action-buttons" style="display: flex; gap: 10px;">
-                                <!-- Change Edit to a button for modal -->
                                 <button type="button"
                                     class="edit-btn openEditEnrollmentModalBtn"
                                     style="display: inline-flex; align-items: center;"
@@ -146,7 +141,6 @@
             </tbody>
         </table>
 
-        <!-- Edit Enrollment Modal -->
         <div id="editEnrollmentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEditEnrollmentModalBtn">&times;</span>
@@ -190,7 +184,6 @@
             </div>
         </div>
 
-        <!-- Mark Modal -->
         <div id="markModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeMarkModalBtn">&times;</span>
@@ -227,49 +220,37 @@
             </div>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination">
             {{ $enrollments->links() }}
         </div>
     </div>
 
     <script>
-        // Get the modal
         var modal = document.getElementById("addEnrollmentModal");
-
-        // Get the button that opens the modal
         var btn = document.getElementById("openEnrollmentModalBtn");
-
-        // Get the <span> element that closes the modal
         var span = document.getElementById("closeEnrollmentModalBtn");
 
-        // When the user clicks the button, open the modal 
         btn.onclick = function() {
             modal.style.display = "block";
         }
 
-        // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
             modal.style.display = "none";
         }
 
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        // Edit Enrollment Modal logic
         var editModal = document.getElementById("editEnrollmentModal");
         var closeEditModalBtn = document.getElementById("closeEditEnrollmentModalBtn");
         var editForm = document.getElementById("editEnrollmentForm");
 
-        // Open edit modal and populate fields
         document.querySelectorAll('.openEditEnrollmentModalBtn').forEach(function(btn) {
             btn.onclick = function(e) {
                 e.preventDefault();
-                // Set form action dynamically
                 var enrollmentId = this.dataset.enrollment_id;
                 editForm.action = "{{ url('enrollments') }}/" + enrollmentId;
                 document.getElementById('edit_enrollment_id').value = enrollmentId;
@@ -285,9 +266,7 @@
             editModal.style.display = "none";
         }
 
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            // ...existing code for enrollment modal...
             if (event.target == editModal) {
                 editModal.style.display = "none";
             }
@@ -299,7 +278,6 @@
             }
         }
 
-        // Mark modal logic
         var markModal = document.getElementById("markModal");
         var closeMarkModalBtn = document.getElementById("closeMarkModalBtn");
         var markForm = document.getElementById("markForm");
@@ -321,13 +299,11 @@
         }
 
         window.onclick = function(event) {
-            // ...existing code for enrollment modal...
             if (event.target == markModal) {
                 markModal.style.display = "none";
             }
         }
 
-        // Add confirmation for delete buttons
         document.querySelectorAll('.delete-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 if (!confirm('Are you sure you want to delete this enrollment?')) {

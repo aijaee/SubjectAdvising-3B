@@ -14,7 +14,6 @@
     <div id="content">
         <h2>Subject List</h2>
 
-        <!-- Search and Filter -->
         <div class="search-bar" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <form action="{{ route('courses.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="query" placeholder="Search by Subject Name..." value="{{ request('query') }}" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
@@ -38,12 +37,10 @@
             </form>
         </div>
 
-        <!-- Add New Course Button -->
         <div class="add-student-container">
             <button id="openModalBtn" class="enroll-student-btn" type="button">Add New Subject</button>
         </div>
 
-        <!-- Add Course Modal -->
         <div id="addCourseModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeModalBtn">&times;</span>
@@ -91,7 +88,6 @@
             </div>
         </div>
 
-        <!-- Edit Course Modal -->
         <div id="editCourseModal" class="modal" style="display:none;">
             <div class="modal-content">
                 <span class="close" id="closeEditModalBtn">&times;</span>
@@ -140,7 +136,6 @@
             </div>
         </div>
 
-        <!-- Courses Table -->
         <table id="students-table">
             <thead>
                 <tr>
@@ -199,7 +194,6 @@
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <div class="pagination">
             @if(method_exists($courses, 'links'))
                 {{ $courses->links() }}
@@ -208,7 +202,6 @@
     </div>
 
     <script>
-        // Add Course Modal logic
         const modal = document.getElementById('addCourseModal');
         const openBtn = document.getElementById('openModalBtn');
         const closeBtn = document.getElementById('closeModalBtn');
@@ -220,7 +213,6 @@
             modal.style.display = "none";
         }
 
-        // Edit Course Modal logic
         const editModal = document.getElementById('editCourseModal');
         const closeEditBtn = document.getElementById('closeEditModalBtn');
         const editForm = document.getElementById('editCourseForm');
@@ -243,7 +235,6 @@
             editModal.style.display = "none";
         }
 
-        // Unified window click handler for both modals
         window.addEventListener('click', function(event) {
             if (modal.style.display === "block" && event.target === modal) {
                 modal.style.display = "none";
@@ -253,7 +244,6 @@
             }
         });
 
-        // AJAX form submit for editing
         editForm.onsubmit = function(e) {
             e.preventDefault();
             const id = editingCourseId;
@@ -277,7 +267,6 @@
             .then(response => response.json())
             .then(result => {
                 if(result.success) {
-                    // Update the table row with new values
                     const row = document.getElementById('course-row-' + id);
                     row.querySelector('.course_name').textContent = data.course_name;
                     row.querySelector('.description').textContent = data.description;
@@ -293,7 +282,6 @@
             .catch(() => alert('Update failed!'));
         };
 
-        // Add confirmation for delete buttons
         document.querySelectorAll('.delete-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 if (!confirm('Are you sure you want to delete this subject?')) {

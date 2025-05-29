@@ -39,7 +39,6 @@
             </button>
         </div>
 
-        <!-- Add Enrollment Modal -->
         <div id="addEnrollmentModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeEnrollmentModalBtn">&times;</span>
@@ -139,7 +138,6 @@
             }
         }
 
-        // Show selected course ID and name (guard for missing elements)
         const courseSelect = document.getElementById('course_id');
         const courseInfoDiv = document.getElementById('selectedCourseInfo');
         const courseIdSpan = document.getElementById('selectedCourseId');
@@ -159,7 +157,6 @@
             });
         }
 
-        // Debug: log form data before submit
         document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
             const studentId = document.getElementById('student_id').value;
             const courseId = document.getElementById('course_id').value;

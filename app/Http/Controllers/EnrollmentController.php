@@ -9,13 +9,9 @@ use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $students = Student::all();
-        // Fix: eager load enrollments_count for each course
         $courses = \App\Models\Course::withCount('enrollments')->get();
         $enrollments = Enrollment::with(['student', 'course'])
             ->when($request->input('query'), function($q) use ($request) {
@@ -33,9 +29,6 @@ class EnrollmentController extends Controller
         return view('enrollments.index', compact('enrollments', 'students', 'courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $students = Student::all();
@@ -43,9 +36,6 @@ class EnrollmentController extends Controller
         return view('enrollments.create', compact('students', 'courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -56,7 +46,6 @@ class EnrollmentController extends Controller
         ]);
         Enrollment::create($request->all());
 
-        // Redirect based on user role/session
         $userRole = session('user_role');
         if ($userRole === 'Student') {
             return redirect()->route('student.enrollments')->with('success', 'Enrollment added!');
@@ -64,26 +53,16 @@ class EnrollmentController extends Controller
         return redirect()->route('enrollments.index')->with('success', 'Enrollment added!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Enrollment $enrollment)
     {
-        // If you want to keep the edit route but don't have a view, redirect with a message
         return redirect()->route('enrollments.index')->with('error', 'Edit view not implemented.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Enrollment $enrollment)
     {
         $request->validate([
@@ -96,18 +75,12 @@ class EnrollmentController extends Controller
         return redirect()->route('enrollments.index')->with('success', 'Enrollment updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Enrollment $enrollment)
     {
         $enrollment->delete();
         return redirect()->route('enrollments.index')->with('success', 'Enrollment deleted!');
     }
 
-    /**
-     * Get enrollment data as JSON for AJAX editing.
-     */
     public function getEnrollment($id)
     {
         $enrollment = Enrollment::with(['student', 'course'])->findOrFail($id);

@@ -19,21 +19,18 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Add the register route
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Additional routes for sidebar links
 Route::resource('students', StudentController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('enrollments', EnrollmentController::class);
 Route::resource('marks', MarkController::class);
 Route::resource('users', UserController::class);
 
-// Student-specific routes with inline role check
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/student/enrollments', function () {
         if (Auth::user()->user_role !== 'Student') {

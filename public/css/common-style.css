@@ -1,5 +1,5 @@
 :root {
-    /* Colors */
+    
     --primary-color: #6c63ff;
     --primary-color-selected: #554ee1;
     --background-color: #f7f7fa;
@@ -12,11 +12,10 @@
     --text-color-light: #222;
     --th-color: #ececff;
 
-    /* Box Shadows */
+    
     --primary-shadow: 0px 0px 10px rgba(80, 80, 120, 0.08);
 }   
 
-/* scrollbar */
 ::-webkit-scrollbar {
     width: 5px;
 }
@@ -31,7 +30,6 @@
     transition: var(--tran-03);
 }
 
-/* Others */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -294,7 +292,7 @@ tr:nth-child(even) {
     transition: background-color 0.3s;
 }
 
-/* Style for disabled button */
+
 .mark-btn[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
@@ -349,7 +347,7 @@ tr:nth-child(even) {
     transform: translateY(-5px);
 }
 
-/* Enrollment Form Styling */
+
 .modal {
     display: none;
     position: fixed;
@@ -453,7 +451,7 @@ tr:nth-child(even) {
 .card span i{ color:#f0a500; font-size:27px; }
 
 
-/* ////////////////////////////////// */
+
 
 
 .page-nav {
@@ -485,7 +483,7 @@ tr:nth-child(even) {
    
 
 
-/* ////////////////////////////////// */
+
 
 .alert{ padding: 20px; border-radius: 5px; text-align: center; position: relative;
     width: 100%; margin: 20px auto; color: #333; font-size: 16px; box-sizing: border-box;}

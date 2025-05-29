@@ -36,8 +36,8 @@ class UserController extends Controller
                 'string',
                 'confirmed',
                 'min:8',
-                'regex:/[0-9]/', // at least one number
-                'regex:/[^A-Za-z0-9]/', // at least one special character
+                'regex:/[0-9]/',
+                'regex:/[^A-Za-z0-9]/',
             ],
             'user_role' => 'required|string|in:Student,Admin',
         ], [
@@ -74,15 +74,14 @@ class UserController extends Controller
                 'string',
                 'confirmed',
                 'min:8',
-                'regex:/[0-9]/', // at least one number
-                'regex:/[^A-Za-z0-9]/', // at least one special character
+                'regex:/[0-9]/',
+                'regex:/[^A-Za-z0-9]/',
             ],
         ], [
             'password.min' => 'Password must be at least 8 characters.',
             'password.regex' => 'Password must include at least one number and one special symbol.',
         ]);
 
-        // Check current password
         if (!\Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }

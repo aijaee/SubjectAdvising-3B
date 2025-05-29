@@ -7,9 +7,6 @@ use App\Models\Course;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $query = Course::query();
@@ -24,11 +21,8 @@ class CourseController extends Controller
         }
         $courses = $query->paginate(10);
 
-        // Manually count active enrollments for each course
         foreach ($courses as $course) {
-            // Get all enrollments for this course
             $enrollments = \App\Models\Enrollment::where('course_id', $course->course_id)->get();
-            // Count only those with status 'Active' (case-insensitive, trimmed)
             $course->active_enrollments_count = $enrollments->filter(function($enrollment) {
                 return strtolower(trim($enrollment->enrollment_status)) === 'active';
             })->count();
@@ -37,17 +31,11 @@ class CourseController extends Controller
         return view('courses.index', compact('courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('courses.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -62,25 +50,16 @@ class CourseController extends Controller
         return redirect()->route('courses.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Course $course)
     {
         return view('courses.edit', compact('course'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $course = Course::findOrFail($id);
@@ -100,9 +79,6 @@ class CourseController extends Controller
         return redirect()->route('courses.index')->with('success', 'Course updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Course $course)
     {
         $course->delete();
